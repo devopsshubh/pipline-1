@@ -1,0 +1,51 @@
+pipeline {
+    agent any 
+    parameters {
+        string (name:'person',defaultValue:'shubhampatil',description:'heelo')
+    }
+    environment {
+        name = 'shubham'
+    }
+    stages {
+        stage('run a command') { 
+            steps {
+                 
+                sh 'date'
+                sh 'pwd'
+                sh 'ls'
+            
+            }
+        }
+        stage('Environment Variable') { 
+            steps {
+                sh 'echo "$(BUILD_ID)"'
+            }
+        }
+        stage('environment variable') { 
+            steps {
+                sh 'echo "$(name)"'
+            }
+        }
+        stage('Test') { 
+            steps {
+                echo "hello test"
+            }
+        }
+        stage('parameters') {
+            steps {
+                 sh 'echo "$(person)"'
+            }
+        }
+        stage('Deploy-variables') { 
+            environment {
+                username = 'rahul'
+            }
+            steps {
+               echo "hello deploy"
+               sh 'echo "$(BUILD_ID)"'
+               sh 'echo "$(name)"'
+               sh  'echo "$(username)"'
+            }
+        }
+    }
+ }
